@@ -42,8 +42,33 @@
             }
         }
 
+        int total = SimularityScore(arrayOne, arraytwo);
+        Console.WriteLine($"The simularity score = {total}");
+
         Console.WriteLine($"FinalTotal: {finalTotal}");
 
         Console.ReadLine();
+    }
+
+    private static int SimularityScore(int[] listOne, int[] listTwo)
+    {
+        int total = 0;
+
+        foreach (var x in listOne)
+        {
+            int itemCount = 0;
+
+            foreach (var y in listTwo)
+            {
+                if (y == x)
+                {
+                    itemCount++;
+                }
+            }
+
+            total += itemCount * x;
+        }
+
+        return total;
     }
 }
