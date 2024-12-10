@@ -1,0 +1,74 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch DayOne",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/DayOne/bin/Debug/net8.0/DayOne.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DayOne",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": ".NET Core Launch DayTwo",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/DayTwo/bin/Debug/net8.0/DayTwo.dll",
+            "args": ["${workspaceFolder}/DayTwo/DayTwoPracticeInput.txt"],
+            "cwd": "${workspaceFolder}/DayTwo",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
+        },
+        {
+            "name": ".NET Core Launch DayThree",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/DayThree/bin/Debug/net8.0/DayThree.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DayThree",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": ".NET Core Launch DayFour",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/DayFour/bin/Debug/net8.0/DayFour.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DayFour",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": ".NET Core Launch DayFive",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/DayFive/bin/Debug/net8.0/DayFive.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DayFive",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": ".NET Core Launch DaySix",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/DaySix/bin/Debug/net8.0/DaySix.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DaySix",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}

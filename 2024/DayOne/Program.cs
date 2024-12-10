@@ -3,7 +3,6 @@
     private static void Main(string[] args)
     {
         FileInfo inputFile = new(args[0]);
-        //FileInfo inputFile = new(@"/home/zzak/Downloads/DayOneInput");
         IEnumerable<string> lines = [];
         using (var reader = new StreamReader(inputFile.FullName))
         {

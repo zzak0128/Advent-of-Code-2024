@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 internal class Program
 {
@@ -21,7 +20,7 @@ internal class Program
                 currentTotal += ParseLine(line);
             }
 
-            System.Console.WriteLine($"Current total = {currentTotal}");
+            Console.WriteLine($"Current total = {currentTotal}");
     }
 
     private static int ParseLine(string line)
@@ -41,7 +40,36 @@ internal class Program
         return lineTotal;
     }
 
+    // For part two
+        private static int ParseLine2(string line)
+    {
+        int lineTotal = 0;
+
+        Console.WriteLine(line);
+        Console.WriteLine("Matches:");
+        var reg = new Regex(@"mul\(\d+\,\d+\)");
+        var found = reg.Matches(line);
+        foreach (var match in found)
+        {
+            Console.WriteLine(match);
+            lineTotal += ParseAndCalculate(match);
+        }
+
+        return lineTotal;
+    }
+
     private static int ParseAndCalculate(object mul)
+    {
+        var reg = new Regex(@"\d+");
+        var matches = reg.Matches(mul.ToString());
+        var number1 = matches.ElementAt(0).ToString();
+        var number2 = matches.ElementAt(1).ToString();
+
+        return Mul(int.Parse(number1), int.Parse(number2));
+    }
+
+    // For Part Two
+        private static int ParseAndCalculate2(object mul)
     {
         var reg = new Regex(@"\d+");
         var matches = reg.Matches(mul.ToString());
