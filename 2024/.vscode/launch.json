@@ -36,6 +36,17 @@
             "cwd": "${workspaceFolder}/DayThree",
             "stopAtEntry": false,
             "console": "externalTerminal"
+        },
+        {
+            "name": ".NET Core Launch DayFour",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/DayFour/bin/Debug/net8.0/DayFour.dll",
+            "args": ["${workspaceFolder}/DayFour/DayFourPracticeInput.txt"],
+            "cwd": "${workspaceFolder}/DayFour",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
         }
     ]
 }
