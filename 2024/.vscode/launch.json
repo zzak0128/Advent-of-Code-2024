@@ -32,43 +32,10 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/DayThree/bin/Debug/net8.0/DayThree.dll",
-            "args": [],
+            "args": ["${workspaceFolder}/DayThree/DayThreePracticeInput_PartTwo.txt"],
             "cwd": "${workspaceFolder}/DayThree",
             "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": ".NET Core Launch DayFour",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/DayFour/bin/Debug/net8.0/DayFour.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/DayFour",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": ".NET Core Launch DayFive",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/DayFive/bin/Debug/net8.0/DayFive.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/DayFive",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": ".NET Core Launch DaySix",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/DaySix/bin/Debug/net8.0/DaySix.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/DaySix",
-            "stopAtEntry": false,
-            "console": "internalConsole"
+            "console": "externalTerminal"
         }
     ]
 }

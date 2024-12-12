@@ -5,80 +5,91 @@ internal class Program
     private static void Main(string[] args)
     {
         FileInfo inputFile = new(args[0]);
-        //FileInfo inputFile = new(@"/home/zzak/Downloads/DayTwoPracticeInput.txt");
-        List<string> lines = [];
+        string input = "";
         using (var reader = new StreamReader(inputFile.FullName))
         {
-            while (!reader.EndOfStream)
-            {
-                lines.Add(reader.ReadLine());
-            }
+            input = reader.ReadToEnd();
         }
-        var currentTotal = 0;
-            foreach (var line in lines)
-            {
-                currentTotal += ParseLine(line);
-            }
 
-            Console.WriteLine($"Current total = {currentTotal}");
+        //var currentTotal = ParseInput(input);
+        var currentTotal = ParseInput_PartTwo(input);
+
+        Console.WriteLine($"Current total = {currentTotal}");
     }
 
-    private static int ParseLine(string line)
+    private static int ParseInput(string input)
     {
-        int lineTotal = 0;
+        int inputTotal = 0;
 
-        Console.WriteLine(line);
+        Console.WriteLine(input);
         Console.WriteLine("Matches:");
+
         var reg = new Regex(@"mul\(\d+\,\d+\)");
-        var found = reg.Matches(line);
-        foreach (var match in found)
+        var foundMul = reg.Matches(input);
+
+        foreach (Match match in foundMul)
         {
+            var matchIndex = match.Index;
+
             Console.WriteLine(match);
-            lineTotal += ParseAndCalculate(match);
+            inputTotal += ParseAndCalculate(match);
         }
 
-        return lineTotal;
+        return inputTotal;
     }
 
-    // For part two
-        private static int ParseLine2(string line)
+    private static int ParseInput_PartTwo(string input)
     {
-        int lineTotal = 0;
+        int inputTotal = 0;
 
-        Console.WriteLine(line);
+        Console.WriteLine(input);
         Console.WriteLine("Matches:");
+
         var reg = new Regex(@"mul\(\d+\,\d+\)");
-        var found = reg.Matches(line);
-        foreach (var match in found)
+        var foundMul = reg.Matches(input);
+
+        var regDo = new Regex(@"do\(\)");
+        var regDont = new Regex(@"don't\(\)");
+
+        var doMatches = regDo.Matches(input);
+        var dontMatches = regDont.Matches(input);
+
+        var doIndexes = doMatches.Select(x => x.Index).ToList();
+        var dontIndexes = dontMatches.Select(x => x.Index).ToList();
+        var mergedIndices = doIndexes.Concat(dontIndexes).OrderBy(x => x).ToArray();
+
+        var isEnabled = true;
+        var nextIndex = 0;
+        foreach (Match match in foundMul)
         {
+            var matchIndex = match.Index;
+            if (nextIndex < mergedIndices.Length && matchIndex > mergedIndices[nextIndex])
+            {
+                var isDo = doIndexes.Contains(mergedIndices[nextIndex]);
+                isEnabled = isDo ? true : false;
+                nextIndex++;
+            }
+
             Console.WriteLine(match);
-            lineTotal += ParseAndCalculate(match);
+
+            if (isEnabled)
+            {
+                inputTotal += ParseAndCalculate(match);
+            }
         }
 
-        return lineTotal;
+        return inputTotal;
     }
 
     private static int ParseAndCalculate(object mul)
     {
         var reg = new Regex(@"\d+");
         var matches = reg.Matches(mul.ToString());
-        var number1 = matches.ElementAt(0).ToString();
-        var number2 = matches.ElementAt(1).ToString();
+        var number1 = matches.ElementAt(0).Value;
+        var number2 = matches.ElementAt(1).Value;
 
         return Mul(int.Parse(number1), int.Parse(number2));
     }
-
-    // For Part Two
-        private static int ParseAndCalculate2(object mul)
-    {
-        var reg = new Regex(@"\d+");
-        var matches = reg.Matches(mul.ToString());
-        var number1 = matches.ElementAt(0).ToString();
-        var number2 = matches.ElementAt(1).ToString();
-
-        return Mul(int.Parse(number1), int.Parse(number2));
-    }
-
 
     private static int Mul(int x, int y)
     {
