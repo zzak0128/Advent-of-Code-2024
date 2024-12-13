@@ -21,13 +21,17 @@ internal class Program
         int matchingWordCount = 0;
         foreach (var word in wordList)
         {
-            if(IsValidWord(word))
+            if (IsValidWord(word, "XMAS"))
             {
                 matchingWordCount++;
             }
         }
 
         System.Console.WriteLine($"The total count of found 'XMAS' is {matchingWordCount}");
+
+        // Part Two
+        int matchingCrosses = WordSearchCross(wordGrid);
+        System.Console.WriteLine($"The total count of X-MASes found is {matchingCrosses}");
     }
 
     private static char[,] CreateGridArray(List<string> lines)
@@ -68,7 +72,39 @@ internal class Program
         return wordList;
     }
 
-    private static string CheckDirection(int row, int col, char[,] wordGrid, Direction direction)
+    private static int WordSearchCross(char[,] wordGrid)
+    {
+        int validCrosses = 0;
+
+        for (int i = 0; i < wordGrid.GetLength(0); i++)
+        {
+            for (int j = 0; j < wordGrid.GetLength(1); j++)
+            {
+                string diagnalOne = "";
+                string diagnalTwo = "";
+
+                diagnalOne += CheckDirection(i, j, wordGrid, Direction.DownLeft, 1, true);
+                diagnalOne += wordGrid[i, j];
+                diagnalOne += CheckDirection(i, j, wordGrid, Direction.UpRight, 1, true);
+
+                diagnalTwo += CheckDirection(i, j, wordGrid, Direction.UpLeft, 1, true);
+                diagnalTwo += wordGrid[i, j];
+                diagnalTwo += CheckDirection(i, j, wordGrid, Direction.DownRight, 1, true);
+
+                bool isDiagnalOneValid = IsValidWord(diagnalOne, "MAS") || IsValidWord(diagnalOne, "SAM");
+                bool isDiagnalTwoValid = IsValidWord(diagnalTwo, "MAS") || IsValidWord(diagnalTwo, "SAM");
+
+                if (isDiagnalOneValid && isDiagnalTwoValid)
+                {
+                    validCrosses++;
+                }
+            }
+        }
+
+        return validCrosses;
+    }
+
+    private static string CheckDirection(int row, int col, char[,] wordGrid, Direction direction, int wordLength = 4, bool skipFirst = false)
     {
         int[] IncreaseBy = new int[2];
         switch (direction)
@@ -116,6 +152,7 @@ internal class Program
         int charCheckCount = 0;
 
         string foundWord = "";
+        bool skip = skipFirst;
 
         do
         {
@@ -128,19 +165,28 @@ internal class Program
                 return "";
             }
 
-            foundWord += wordGrid[currentRow, currentCol];
+            if (!skip)
+            {
+                foundWord += wordGrid[currentRow, currentCol];
+            }
+            else
+            {
+                skip = false;
+                charCheckCount -= 1;
+            }
+
             currentRow += IncreaseBy[0];
             currentCol += IncreaseBy[1];
             charCheckCount++;
 
-        } while (charCheckCount < 4);
+        } while (charCheckCount < wordLength);
 
         return foundWord;
     }
 
-    private static bool IsValidWord(string word)
+    private static bool IsValidWord(string word, string validWord)
     {
-        if (word.Contains("XMAS"))
+        if (word.Contains(validWord))
         {
             return true;
         }
